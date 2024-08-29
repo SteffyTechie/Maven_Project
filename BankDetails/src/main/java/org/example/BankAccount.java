@@ -1,14 +1,18 @@
 package org.example;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
 import java.sql.*;
 import java.util.Scanner;
 
 
 public class BankAccount {
 
-
-
     public void addAccount() {
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the Account Number:");
         String acc_no = sc.next();
@@ -19,31 +23,16 @@ public class BankAccount {
         System.out.println("Enter your pin:");
         String pin = sc.next();
 
-        try {
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/user_authentication", "root", "mysql419");
-            PreparedStatement Stmt = conn.prepareStatement("SELECT * FROM bank_account WHERE acc_no = ?");
-            Stmt.setString(1, acc_no);
-            ResultSet rs = Stmt.executeQuery();
+        SessionFactory sf=new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Account ac=new Account(acc_no,acc_name,balance,pin);
+        Session session= sf.openSession();
+        Transaction tx=session.beginTransaction();
+        session.persist(ac);
+        tx.commit();
+        session.close();
+        System.out.println("successfully done");
 
-            if (rs.next()) {
-                System.out.println("Account already exists");
-            } else {
-                PreparedStatement pstmt = conn.prepareStatement( "INSERT INTO bank_account (acc_no, acc_name, balance, pin) VALUES (?, ?, ?, ?)");
-                pstmt.setString(1, acc_no);
-                pstmt.setString(2, acc_name);
-                pstmt.setDouble(3, balance);
-                pstmt.setString(4, pin);
-                pstmt.executeUpdate();
-                System.out.println("Registration done");
-            }
-
-            conn.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void debitAmount() {
@@ -139,4 +128,3 @@ public class BankAccount {
         }
     }
 }
-

@@ -1,5 +1,6 @@
 package org.example;
 
+
 import java.util.Scanner;
 
 public class Main {
@@ -8,16 +9,16 @@ public class Main {
         int choice;
 
         Scanner sc=new Scanner(System.in);
-        BankAccount bank= new BankAccount();
 
+        BankAccount bank= new BankAccount();
 
 
         do{
             System.out.println("Details"+
-                    " \n1 Add Account" +
+                    "\n 1 Add Account" +
                     "\n 2 CreditAmount " +
                     "\n 3 DebitAmount " +
-                    "\n  4 show All Accounts \n Enter your choice");
+                    "\n 4 show All Accounts \n Enter your choice:");
             choice= sc.nextInt();
 
             switch (choice) {
