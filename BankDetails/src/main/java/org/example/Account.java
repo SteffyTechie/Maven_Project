@@ -79,5 +79,4 @@ public class Account {
         this.pin = pin;
     }
 
-
 }

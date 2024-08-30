@@ -18,7 +18,8 @@ public class Main {
                     "\n 1 Add Account" +
                     "\n 2 CreditAmount " +
                     "\n 3 DebitAmount " +
-                    "\n 4 show All Accounts \n Enter your choice:");
+                    "\n 4 show All Accounts" +
+                    "\n 5 Exit \n Enter your choice:");
             choice= sc.nextInt();
 
             switch (choice) {
